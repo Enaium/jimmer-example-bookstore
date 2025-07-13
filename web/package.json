@@ -1,0 +1,39 @@
+{
+  "name": "bookstore",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "preview": "vite preview",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --build",
+    "format": "prettier --write src/"
+  },
+  "dependencies": {
+    "@tanstack/vue-query": "^5.82.0",
+    "pinia": "^3.0.3",
+    "pinia-plugin-persistedstate": "^4.4.1",
+    "ts-pattern": "^5.7.1",
+    "vite-plugin-windicss": "^1.9.4",
+    "vue": "^3.5.17",
+    "vue-router": "^4.5.1",
+    "windicss": "^3.5.6"
+  },
+  "devDependencies": {
+    "@tsconfig/node22": "^22.0.2",
+    "@types/node": "^22.15.32",
+    "@vicons/fluent": "^0.13.0",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "@vitejs/plugin-vue-jsx": "^5.0.0",
+    "@vue/tsconfig": "^0.7.0",
+    "naive-ui": "^2.42.0",
+    "npm-run-all2": "^8.0.4",
+    "prettier": "3.5.3",
+    "typescript": "~5.8.0",
+    "vite": "^7.0.0",
+    "vite-plugin-vue-devtools": "^7.7.7",
+    "vue-tsc": "^2.2.10"
+  }
+}

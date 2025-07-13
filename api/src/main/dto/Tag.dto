@@ -1,0 +1,11 @@
+export cn.enaium.bookstore.model.entity.Tag
+    -> package cn.enaium.bookstore.model.entity.dto
+
+input TagInput {
+    name
+}
+
+TagView {
+    id
+    name
+}

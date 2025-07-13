@@ -1,0 +1,32 @@
+export cn.enaium.bookstore.model.entity.Favourite
+    -> package cn.enaium.bookstore.model.entity.dto
+
+input FavouriteInput {
+    author {
+        id
+    }
+    book {
+        id
+    }
+    issuer {
+        id
+    }
+}
+
+FavouriteView {
+    id
+    author {
+        id
+        firstName
+        lastName
+    }
+    book {
+        id
+        name
+    }
+    issuer {
+        id
+        name
+    }
+    createdTime
+}

@@ -1,0 +1,18 @@
+export cn.enaium.bookstore.model.entity.Issuer
+    -> package cn.enaium.bookstore.model.entity.dto
+
+input IssuerInput {
+    id
+    name
+    website
+}
+
+IssuerView {
+    id
+    name
+    website
+    bookCount
+    commentCount
+    voteCount
+    favouriteCount
+}

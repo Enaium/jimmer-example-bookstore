@@ -1,0 +1,80 @@
+/*
+ * Copyright (c) 2025 Enaium
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+package cn.enaium.bookstore.service
+
+import cn.enaium.bookstore.error.ImageException
+import cn.enaium.bookstore.model.entity.Image
+import cn.enaium.bookstore.model.entity.by
+import cn.enaium.bookstore.model.entity.hash
+import jakarta.servlet.http.HttpServletResponse
+import org.babyfish.jimmer.kt.new
+import org.babyfish.jimmer.sql.kt.KSqlClient
+import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Service
+import org.springframework.util.DigestUtils
+import org.springframework.web.multipart.MultipartFile
+import java.nio.file.Files
+import java.util.*
+import kotlin.io.path.Path
+import kotlin.io.path.createDirectories
+import kotlin.io.path.readBytes
+import kotlin.io.path.writeBytes
+
+/**
+ * @author Enaium
+ */
+@Service
+class ImageService(
+    val sql: KSqlClient,
+    @param:Value($$"${bookstore.image.dir}") val imageDir: String
+) {
+    fun find(id: UUID, httpServletResponse: HttpServletResponse) {
+        sql.findById(Image::class, id)
+            ?.also {
+                val file = Path(System.getProperty("user.dir")).resolve(imageDir).resolve("${it.hash}.${it.extension}")
+                httpServletResponse.contentType = Files.probeContentType(file)
+                httpServletResponse.outputStream.write(file.readBytes())
+            } ?: throw ImageException.notFound()
+    }
+
+    fun upload(file: MultipartFile): UUID {
+        val hash = DigestUtils.md5DigestAsHex(file.bytes)
+        val extension = file.originalFilename?.substringAfterLast(".") ?: throw ImageException.noExtension()
+        return sql.createQuery(Image::class) {
+            where(table.hash eq hash)
+            select(table)
+        }.fetchOneOrNull()?.id ?: let {
+            with(
+                Path(System.getProperty("user.dir")).resolve(imageDir).resolve("$hash.$extension")
+            ) {
+                parent.createDirectories()
+                writeBytes(file.bytes)
+            }
+            sql.save(new(Image::class).by {
+                this.hash = hash
+                this.extension = extension
+            }).modifiedEntity.id
+        }
+    }
+}

@@ -1,0 +1,41 @@
+export cn.enaium.bookstore.model.entity.Vote
+    -> package cn.enaium.bookstore.model.entity.dto
+
+input VoteInput {
+    author {
+        id
+    }
+    book {
+        id
+    }
+    issuer {
+        id
+    }
+    comment {
+        id
+    }
+}
+
+VoteView {
+    id
+    author {
+        id
+        firstName
+        lastName
+    }
+    book {
+        id
+        name
+    }
+    issuer {
+        id
+        name
+    }
+    comment {
+        id
+        account {
+            username
+        }
+    }
+    createdTime
+}

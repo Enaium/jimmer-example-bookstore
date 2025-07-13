@@ -1,0 +1,13 @@
+export cn.enaium.bookstore.model.entity.Account
+    -> package cn.enaium.bookstore.model.entity.dto
+
+input AccountInput {
+    username
+    password
+    profile {
+        firstName
+        lastName
+        phone
+        address
+    }
+}

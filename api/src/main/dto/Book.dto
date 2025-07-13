@@ -1,0 +1,56 @@
+export cn.enaium.bookstore.model.entity.Book
+    -> package cn.enaium.bookstore.model.entity.dto
+
+input BookInput {
+    id
+    name
+    edition
+    price
+    issuer {
+        id
+        name
+        website
+    }
+    authors {
+        id
+        firstName
+        lastName
+        gender
+    }
+    tags {
+        id
+        name
+    }
+    images { 
+        id
+    }
+}
+
+BookView {
+    id
+    name
+    edition
+    price
+    issuer {
+        id
+        name
+        website
+    }
+    authors {
+        id
+        firstName
+        lastName
+        gender
+    }
+    tags {
+        id
+        name
+    }
+    images {
+        id
+    }
+    authorCount
+    commentCount
+    voteCount
+    favouriteCount
+}

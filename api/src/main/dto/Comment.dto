@@ -1,0 +1,35 @@
+export cn.enaium.bookstore.model.entity.Comment
+    -> package cn.enaium.bookstore.model.entity.dto
+
+input CommentInput {
+    content
+    author {
+        id
+    }
+    book {
+        id
+    }
+    parent {
+        id
+    }
+    issuer {
+        id
+    }
+    images {
+        id
+    }
+}
+
+CommentView {
+    id
+    account {
+        id
+        username
+    }
+    content
+    images {
+        id
+    }
+    commentCount
+    voteCount
+}
