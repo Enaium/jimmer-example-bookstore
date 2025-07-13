@@ -346,6 +346,10 @@ bun run build
 ![20250713221504](https://s2.loli.net/2025/07/13/1Dwb5YXfnAaLFzP.png)
 ![20250713222043](https://s2.loli.net/2025/07/13/l3bN91SrmCMqo7I.png)
 ![20250713222337](https://s2.loli.net/2025/07/13/eBUHbDSjLhmMYvd.png)
+![20250713223549](https://s2.loli.net/2025/07/13/zJkxWgA2pNBLmsy.png)
+![20250713223727](https://s2.loli.net/2025/07/13/DdN32c9b1mYICHX.png)
+![20250713223809](https://s2.loli.net/2025/07/13/YTgDIdMKki2UJoE.png)
+![20250713223832](https://s2.loli.net/2025/07/13/rmgVKXWOwaSs8Qq.png)
 
 ## 📄 License
 
